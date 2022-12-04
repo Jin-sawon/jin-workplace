@@ -11,10 +11,21 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Flutter Demo',
+      title: '오늘 첫 연습',
       theme: ThemeData(
       ),
-      home: const Text('한국어가 되니?'),
-    );
+      home: Scaffold(
+        appBar: AppBar(
+            title: const Text('12.05 연습')
+
+        ),
+        body: const Center(
+          child: Image(image: NetworkImage(
+              "https://thx.sfo2.cdn.digitaloceanspaces.com/wr/coverimages/m_11/%EC%98%88%ED%96%89%EC%97%B0%EC%8A%B5_11.jpg")),
+
+        ),
+           //const Center(child: Text('한국어도 되니?'))
+        ),
+       );
   }
 }
