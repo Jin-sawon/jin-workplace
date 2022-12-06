@@ -16,7 +16,7 @@ class MyApp extends StatelessWidget {
       ),
       home: Scaffold(
         appBar: AppBar(
-            title: const Text('파이어베이스')
+            title: const Text('저는 연습용 샘플입니다?')
 
         ),
         body: const Center(
