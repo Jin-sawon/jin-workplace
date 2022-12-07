@@ -15,7 +15,7 @@ class MyApp extends StatelessWidget {
       title: '연습',
       theme: ThemeData(
       ),
-      home: const AuthPage(),
+      home: AuthPage(),
     );
   }
 }
