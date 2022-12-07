@@ -1,10 +1,7 @@
 import 'package:flutter/material.dart';
 
 class LoginBackground extends CustomPainter {
-  LoginBackground({required this.isJoin}) {
-    // TODO: implement LoginBackground
-    throw UnimplementedError();
-  }
+  LoginBackground({required this.isJoin});
 
   final bool isJoin;
 

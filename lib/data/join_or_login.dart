@@ -1,6 +1,6 @@
 import 'package:flutter/foundation.dart';
 
-class JoinOrLogin extends ChangeNotifier{
+class  JoinOrLogin extends ChangeNotifier {
   bool _isJoin = false;
 
   bool get isJoin => _isJoin;
