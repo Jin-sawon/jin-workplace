@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
-
+import 'package:test123/data/join_or_login.dart';
+import 'package:test123/helper/login_background.dart';
+import 'package:provider/provider.dart';
 class AuthPage extends StatelessWidget {
   AuthPage({Key? key}) : super(key: key);
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
@@ -9,9 +11,14 @@ class AuthPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final Size size = MediaQuery.of(context).size;
+
     return Scaffold(
-      body: Stack(alignment: Alignment.center, children: <Widget>[
-        Container(color: Colors.white),
+      body: Stack(alignment: Alignment.center,
+          children: <Widget>[
+        CustomPaint(
+          size: size,
+          painter: LoginBackground(isJoin: Provider.of<JoinOrLogin>(context).isJoin),
+        ),
         Column(
           crossAxisAlignment: CrossAxisAlignment.center,
           mainAxisAlignment: MainAxisAlignment.end,
@@ -26,14 +33,20 @@ class AuthPage extends StatelessWidget {
             Container(
               height: size.height * 0.1,
             ),
-            const Text("계정이 없으십니까? "),
-            const Text("지금바로 회원가입을 해보세요!"),
+
+            GestureDetector(
+                onTap:(){
+                  JoinOrLogin joinOrLogin = Provider.of<JoinOrLogin>(context);
+                  joinOrLogin.toggle();
+                },
+                child: const Text("지금바로 회원가입을 해보세요!")),
             Container(
               height: size.height * 0.05,
             )
           ],
-        )
-      ]),
+        ),
+      ],
+      ),
     );
   }
 
@@ -53,16 +66,21 @@ class AuthPage extends StatelessWidget {
   Widget _authButton(Size size) => Positioned(
         left: size.width * 0.19,
         right: size.width * 0.19,
-        top: size.width * 0.478,
+       bottom: 5,
         child: ElevatedButton(
-          onPressed: () {},
+
           style: ElevatedButton.styleFrom(
             shape: const StadiumBorder(),
-            backgroundColor: Colors.deepPurple,
-            padding: const EdgeInsets.all(10),
+            backgroundColor: Colors.indigo,
+            padding: const EdgeInsets.all(11),
             textStyle: const TextStyle(fontSize: 17, color: Colors.white),
+            elevation: 12,
           ),
-          child: const Text(" 로그인 "),
+          child: const Text(" 로그인 "), onPressed: () {
+          if (_formKey.currentState!.validate()) {
+            debugPrint(_passwordController.text.toString());
+          }
+        },
         ),
       );
 
@@ -72,7 +90,7 @@ class AuthPage extends StatelessWidget {
         child: Card(
           shape:
               RoundedRectangleBorder(borderRadius: BorderRadius.circular(19)),
-          elevation: 7.7,
+          elevation:13,
           child: Padding(
             padding: const EdgeInsets.only(
                 left: 12.0, right: 16.0, top: 12, bottom: 40),
@@ -85,7 +103,7 @@ class AuthPage extends StatelessWidget {
                       controller: _emailController,
                       decoration: const InputDecoration(
                         icon: Icon(Icons.email),
-                        labelText: "Email",
+                        labelText: "Email Address",
                       ),
                       validator: (String? value) {
                         if (value != null && value.isEmpty) {
@@ -95,9 +113,10 @@ class AuthPage extends StatelessWidget {
                       },
                     ),
                     TextFormField(
+                      obscureText: true,
                       controller: _passwordController,
                       decoration: const InputDecoration(
-                        icon: Icon(Icons.account_tree),
+                        icon: Icon(Icons.key),
                         labelText: "Password",
                       ),
                       validator: (String? value) {
